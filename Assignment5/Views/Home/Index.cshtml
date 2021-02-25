@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model ProjectListViewModel
+
+<div class="text-center">
+    <h1 class="display-4">Daintree Books</h1>
+</div>
+
+@foreach (var x in Model.Books)
+{
+    <div class="card">
+        <div class="row">
+            <div class="col-4">
+                <img class="card-img-top" src="~/img/favicon.png" height="270" alt="Card image cap">
+            </div>
+            <div class="col">
+                <div class="card-body my-auto">
+                    <h4 class="card-title text-center">@x.Title</h4>
+                    <h6 class="card-subtitle mb-2 text-muted text-center">@x.Author</h6>
+                    <br />
+                    <div class="my-auto">
+                        <p class="card-text">Publisher : @x.Publisher</p>
+                        <p class="card-text">Genre : @x.Classification</p>
+                        <p class="card-text">ISBN : @x.ISBN</p>
+                        <p class="card-text">Price : $@x.Price</p>
+                        <p class="card-text">Pages : @x.Pages</p>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+}
+
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"></div>
