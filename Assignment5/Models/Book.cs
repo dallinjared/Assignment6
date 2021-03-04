@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Assignment5.Models
@@ -15,5 +16,22 @@ namespace Assignment5.Models
         public string Classification { get; set; }
         public double Price { get; set; }
         public int Pages { get; set; }
+
+        public ICollection<BookClassification> BookClassifications { get; set; }
     }
+
+    public class Classification
+    {
+        [Key]
+        public int ClassificationID { get; set; }
+        public string ClassificationName { get; set; }
+        public ICollection<BookClassification> BookClassifications { get; set; }
+    }
+
+    public class BookClassification
+    {
+        public int BookID { get; set; }
+        public int ClassificationID { get; set; }
+    }
+
 }

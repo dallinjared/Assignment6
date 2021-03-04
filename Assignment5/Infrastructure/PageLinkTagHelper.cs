@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Assignment5.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,6 +28,10 @@ namespace Assignment5.Infrastructure
 
         public string PageAction { get; set; }
 
+        
+        [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
+        public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
+
         public bool PageClassesEnabled { get; set; } = false;
 
         public string PageClass { get; set; }
@@ -47,13 +52,15 @@ namespace Assignment5.Infrastructure
             TagBuilder ul = new TagBuilder("ul");
             ul.AddCssClass("pagination justify-content-center");
 
+            //iterate books
             for (int i = 1; i <= PageModel.TotalPages; i++)
             {
                 TagBuilder li = new TagBuilder("li");
+                PageUrlValues["page"] = i;
                 li.AddCssClass("page-item");
 
                 TagBuilder tag = new TagBuilder("a");
-                tag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
+                tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
                 tag.AddCssClass("page-link");
 
                 if(PageClassesEnabled)

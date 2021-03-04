@@ -2,14 +2,16 @@
 using Assignment5.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Assignment5.Migrations
 {
     [DbContext(typeof(DaintreeDBContext))]
-    partial class DaintreeDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210304034633_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,15 +78,30 @@ namespace Assignment5.Migrations
 
             modelBuilder.Entity("BookClassification", b =>
                 {
+                    b.Property<int>("BooksBookID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ClassificationsClassificationID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BooksBookID", "ClassificationsClassificationID");
+
+                    b.HasIndex("ClassificationsClassificationID");
+
+                    b.ToTable("BookClassification");
+                });
+
+            modelBuilder.Entity("BookClassification", b =>
+                {
                     b.HasOne("Assignment5.Models.Book", null)
                         .WithMany()
-                        .HasForeignKey("BookID")
+                        .HasForeignKey("BooksBookID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Assignment5.Models.Classification", null)
                         .WithMany()
-                        .HasForeignKey("ClassificationID")
+                        .HasForeignKey("ClassificationsClassificationID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

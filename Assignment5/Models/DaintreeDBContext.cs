@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Assignment5.Models
 {
@@ -11,5 +10,7 @@ namespace Assignment5.Models
         }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Classification> Classifications { get; set; }
+        public DbSet<BookClassification> BookClassifications { get; set; }
     }
 }
